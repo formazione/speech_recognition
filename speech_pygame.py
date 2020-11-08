@@ -3,12 +3,17 @@ import os
 from glob import glob
 import time
 import speech_recognition as sr
-
+from random import shuffle
 
 gameDisplay = pygame.display.set_mode((400, 400))
 
 pngs = [x for x in glob("animals\\*.PNG")]
 names = [x.split(".")[0] for x in glob("animals\\*.PNG")]
+
+animals = {k:v for k, v in zip(pngs, names)}
+print(animals)
+
+
 print(pngs)
 print(names)
 for n, animals in enumerate(pngs):
@@ -22,7 +27,7 @@ for n, animals in enumerate(pngs):
     for j in range(1,4):
             r = sr.Recognizer()
             with sr.Microphone() as source:
-                print ('Say Something!')
+                print ('What\'s his name!')
                 audio = r.listen(source)
                 try:
                     text = r.recognize_google(audio)
@@ -42,6 +47,8 @@ for n, animals in enumerate(pngs):
                         # pygame.mixer.music.stop()
                         # time.sleep(1)
                         guess_counter += 1
+                    else:
+                        print("\nSorry no more chances\n\n")
     time.sleep(1)
 
 pygame.quit()
